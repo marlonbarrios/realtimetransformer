@@ -63,6 +63,7 @@ function App() {
   const [selectedVoice, setSelectedVoice] = useState('alloy');
   const [isChangingVoice, setIsChangingVoice] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   
   // Handle voice change - disconnect and reconnect if currently connected
   const handleVoiceChange = async (newVoice: string) => {
@@ -192,7 +193,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
     },
   });
 
-  const { downloadRecording } = useAudioDownload();
+  const { startRecording, stopRecording, downloadRecording } = useAudioDownload();
 
   // Text input handlers
   const handleSendMessage = () => {
@@ -333,6 +334,22 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
       addTranscriptBreadcrumb("Connected to RealtimeTransformer");
       console.log('Connection successful');
       
+      // Start audio recording for download functionality
+      // Wait a bit for the audio stream to be available
+      setTimeout(async () => {
+        if (audioElementRef.current && audioElementRef.current.srcObject) {
+          try {
+            await startRecording(audioElementRef.current.srcObject as MediaStream);
+            setIsRecording(true);
+            console.log('Audio recording started');
+          } catch (recordingError) {
+            console.warn('Failed to start audio recording:', recordingError);
+          }
+        } else {
+          console.warn('Audio element or stream not available for recording');
+        }
+      }, 1000); // Wait 1 second for stream to be available
+      
       // Trigger AI introduction by sending a minimal greeting prompt
       setTimeout(() => {
         try {
@@ -356,6 +373,15 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
   };
 
   const handleDisconnect = () => {
+    // Stop audio recording before disconnecting
+    try {
+      stopRecording();
+      setIsRecording(false);
+      console.log('Audio recording stopped');
+    } catch (recordingError) {
+      console.warn('Failed to stop audio recording:', recordingError);
+    }
+    
     disconnect();
     addTranscriptBreadcrumb("Disconnected from RealtimeTransformer");
   };
@@ -435,6 +461,12 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
                   sessionStatus === 'CONNECTING' ? 'bg-yellow-500' : 'bg-red-500'
                 }`} />
                 <span className="text-sm capitalize">{sessionStatus}</span>
+                {isRecording && (
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                    <span className="text-xs text-red-400">Recording</span>
+                  </div>
+                )}
                 </div>
               </div>
             </div>
@@ -461,7 +493,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
                 )}
                 <div className="mt-2 text-orange-400">
                   ⚠️ Note: Only Alloy and Echo voices are currently supported by the Realtime API.
-                </div>
+            </div>
           </div>
         </div>
       </div>
@@ -478,7 +510,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
           setUserText={setUserText}
                 onSendMessage={handleSendMessage}
                 canSend={sessionStatus === 'CONNECTED'}
-                downloadRecording={downloadRecording}
+          downloadRecording={downloadRecording}
           onImageAnalyzed={handleImageAnalyzed}
                 translations={{}}
               />
