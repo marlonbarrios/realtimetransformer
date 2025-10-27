@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
-
 // UI components
 import Transcript from "./components/Transcript";
 import Events from "./components/Events";
@@ -18,7 +16,6 @@ import { createModerationGuardrail } from "@/app/agentConfigs/guardrails";
 import { createGenericAgent } from "@/app/agentConfigs";
 
 import useAudioDownload from "./hooks/useAudioDownload";
-import { useHandleSessionHistory } from "./hooks/useHandleSessionHistory";
 
 // Language options
 const LANGUAGES = [
@@ -456,7 +453,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
               className="w-full h-32 bg-black/30 border border-white/20 rounded-lg p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
               <div className="mt-2 text-xs text-gray-400">
-                Leave empty to use RealtimeTransformer's default identity and capabilities. The AI will respond in {LANGUAGES.find(lang => lang.code === selectedLanguage)?.name} using the {VOICES.find(voice => voice.code === selectedVoice)?.name} voice ({VOICES.find(voice => voice.code === selectedVoice)?.description}).
+                Leave empty to use RealtimeTransformer&apos;s default identity and capabilities. The AI will respond in {LANGUAGES.find(lang => lang.code === selectedLanguage)?.name} using the {VOICES.find(voice => voice.code === selectedVoice)?.name} voice ({VOICES.find(voice => voice.code === selectedVoice)?.description}).
                 {isChangingVoice && (
                   <div className="mt-2 text-yellow-400">
                     🔄 Changing voice and reconnecting...
@@ -496,7 +493,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
               <div className="text-sm space-y-2 text-gray-300">
                 <p>1. Select your preferred language and voice</p>
                 <p>2. <strong>Configure system prompt</strong> to create any persona or specialized AI assistant</p>
-                <p>3. Click "Connect" to start voice chat</p>
+                <p>3. Click &quot;Connect&quot; to start voice chat</p>
                 <p>4. <strong>Normal mode:</strong> Speak naturally - microphone is always listening</p>
                 <p>5. <strong>Push-to-Talk mode:</strong> Check &quot;Push to talk&quot; then hold <kbd className="bg-gray-700 px-1 rounded">Spacebar</kbd> or click &quot;Talk&quot; button to speak</p>
                 <p>6. Release spacebar/button to send your message</p>
