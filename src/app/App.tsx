@@ -192,7 +192,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
     },
   });
 
-  const { downloadAudio } = useAudioDownload();
+  const { downloadRecording } = useAudioDownload();
 
   // Text input handlers
   const handleSendMessage = () => {
@@ -478,7 +478,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
           setUserText={setUserText}
                 onSendMessage={handleSendMessage}
                 canSend={sessionStatus === 'CONNECTED'}
-                downloadRecording={downloadAudio}
+                downloadRecording={downloadRecording}
           onImageAnalyzed={handleImageAnalyzed}
                 translations={{}}
               />
