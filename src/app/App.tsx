@@ -58,7 +58,6 @@ const VOICES = [
 function App() {
 
   const {
-    transcriptItems,
     addTranscriptBreadcrumb,
   } = useTranscript();
 
@@ -197,7 +196,6 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
   });
 
   const { downloadAudio } = useAudioDownload();
-  const { saveSessionHistory, loadSessionHistory } = useHandleSessionHistory();
 
   // Text input handlers
   const handleSendMessage = () => {
@@ -313,7 +311,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
         try {
           const errorData = await sessionResponse.json();
           errorMessage = errorData.error || 'Unknown error';
-        } catch (e) {
+        } catch {
           errorMessage = `HTTP ${sessionResponse.status}: ${sessionResponse.statusText}`;
         }
         throw new Error(`Failed to create session: ${errorMessage}`);
@@ -466,7 +464,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
                 )}
                 <div className="mt-2 text-orange-400">
                   ⚠️ Note: Only Alloy and Echo voices are currently supported by the Realtime API.
-            </div>
+                </div>
           </div>
         </div>
       </div>
@@ -500,7 +498,7 @@ Be helpful, engaging, and educational in your responses. Respond in ${languageNa
                 <p>2. <strong>Configure system prompt</strong> to create any persona or specialized AI assistant</p>
                 <p>3. Click "Connect" to start voice chat</p>
                 <p>4. <strong>Normal mode:</strong> Speak naturally - microphone is always listening</p>
-                <p>5. <strong>Push-to-Talk mode:</strong> Check "Push to talk" then hold <kbd className="bg-gray-700 px-1 rounded">Spacebar</kbd> or click "Talk" button to speak</p>
+                <p>5. <strong>Push-to-Talk mode:</strong> Check &quot;Push to talk&quot; then hold <kbd className="bg-gray-700 px-1 rounded">Spacebar</kbd> or click &quot;Talk&quot; button to speak</p>
                 <p>6. Release spacebar/button to send your message</p>
                 <p className="mt-3 text-purple-300 font-medium">💡 <strong>Tip:</strong> Use the system prompt to create specialized assistants like tutors, creative writers, technical experts, or any custom persona!</p>
       </div>
