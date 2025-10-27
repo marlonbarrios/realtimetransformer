@@ -235,12 +235,12 @@ export function useRealtimeSession(callbacks: RealtimeSessionCallbacks = {}) {
           await sessionRef.current.connect({ apiKey: ek });
           console.log('Connected to RealtimeSession');
           updateStatus('CONNECTED');
-        } catch (connectionError) {
+        } catch (connectionError: any) {
           console.error('=== Connection Process Error ===');
           console.error('Connection error:', connectionError);
-          console.error('Connection error message:', connectionError?.message);
+          console.error('Connection error message:', connectionError?.message || 'No message');
           console.error('Connection error type:', typeof connectionError);
-          console.error('Connection error stack:', connectionError?.stack);
+          console.error('Connection error stack:', connectionError?.stack || 'No stack');
           
           if (connectionError && typeof connectionError === 'object') {
             console.error('Connection error keys:', Object.keys(connectionError));

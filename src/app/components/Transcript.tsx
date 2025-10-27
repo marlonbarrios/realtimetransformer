@@ -227,6 +227,7 @@ function Transcript({
                           <div className="mt-3 p-2 bg-gray-50 rounded-lg">
                             <div className="text-xs text-gray-600 mb-2">🎨 Imagen generada:</div>
                             <div className="rounded-lg overflow-hidden border border-gray-300 bg-white">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img 
                                 src={data.imageUrl} 
                                 alt={data.originalPrompt || "Generated image"}
@@ -284,6 +285,7 @@ function Transcript({
                               {data.analysisType && ` (${data.analysisType})`}
                             </div>
                             <div className="rounded-lg overflow-hidden border border-blue-200 bg-white">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img 
                                 src={data.imageData} 
                                 alt="Uploaded image"
@@ -361,6 +363,7 @@ function Transcript({
                         <div className="mt-3 p-2 bg-blue-50 rounded-lg">
                           <div className="text-xs text-blue-700 mb-2">🖼️ Resultado de función: Imagen generada</div>
                           <div className="rounded-lg overflow-hidden border border-blue-200 bg-white">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img 
                               src={data.imageUrl} 
                               alt={data.originalPrompt || "Generated image"}
@@ -414,6 +417,7 @@ function Transcript({
                             {data.analysisType && ` (${data.analysisType})`}
                           </div>
                           <div className="rounded-lg overflow-hidden border border-green-200 bg-white">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img 
                               src={data.imageData} 
                               alt="Uploaded image"
